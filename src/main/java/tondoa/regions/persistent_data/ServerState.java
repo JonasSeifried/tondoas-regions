@@ -3,7 +3,7 @@ package tondoa.regions.persistent_data;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
@@ -27,11 +27,14 @@ public class ServerState extends PersistentState {
             NbtCompound regionCompound = playersTag.getCompound(key).getCompound("regions");
 
             regionCompound.getKeys().forEach(region -> {
-                NbtCompound coordsCompound = regionCompound.getCompound(region);
-                double x = coordsCompound.getDouble("x");
-                double y = coordsCompound.getDouble("y");
-                double z = coordsCompound.getDouble("z");
-                playerState.regions.put(region, new Vec3d(x,y,z));
+                NbtCompound tRegionCompound = regionCompound.getCompound(region);
+                double x = tRegionCompound.getDouble("x");
+                double y = tRegionCompound.getDouble("y");
+                double z = tRegionCompound.getDouble("z");
+                String name = tRegionCompound.getString("name");
+                String biomeNamespace = tRegionCompound.getString("biomeNamespace");
+                String biomePath = tRegionCompound.getString("biomePath");
+                playerState.regions.put(region, new TRegion(x,y,z,new Identifier(biomeNamespace, biomePath), name));
 
                 });
         UUID uuid =  UUID.fromString(key);
@@ -48,12 +51,15 @@ public class ServerState extends PersistentState {
         players.forEach((UUID, playerData) -> {
             NbtCompound playerDataAsNbt = new NbtCompound();
             NbtCompound regionsTag = new NbtCompound();
-            playerData.regions.forEach((region, coords) -> {
-                NbtCompound coordsNbt = new NbtCompound();
-                coordsNbt.putDouble("x", coords.x);
-                coordsNbt.putDouble("y", coords.y);
-                coordsNbt.putDouble("z", coords.z);
-                regionsTag.put(region, coordsNbt);
+            playerData.regions.forEach((region, tRegion) -> {
+                NbtCompound tRegionCompound = new NbtCompound();
+                tRegionCompound.putDouble("x", tRegion.x);
+                tRegionCompound.putDouble("y", tRegion.y);
+                tRegionCompound.putDouble("z", tRegion.z);
+                tRegionCompound.putString("name", tRegion.name);
+                tRegionCompound.putString("biomeNamespace", tRegion.biomeNamespace);
+                tRegionCompound.putString("biomePath", tRegion.biomePath);
+                regionsTag.put(region, tRegionCompound);
             });
             playerDataAsNbt.put("regions", regionsTag);
             playersNbt.put(UUID.toString(), playerDataAsNbt);
@@ -64,7 +70,7 @@ public class ServerState extends PersistentState {
 
 
     public static ServerState getServerState(MinecraftServer server) {
-        PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
+        PersistentStateManager persistentStateManager = Objects.requireNonNull(server.getWorld(World.OVERWORLD)).getPersistentStateManager();
 
         return persistentStateManager.getOrCreate(
                 ServerState::createFromNbt,

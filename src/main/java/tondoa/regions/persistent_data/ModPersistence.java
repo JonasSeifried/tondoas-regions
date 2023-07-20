@@ -12,14 +12,16 @@ public class ModPersistence {
     public static void registerPersistentStates() {
 
         ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-            ServerState serverState = ServerState.getServerState(handler.player.server);
             PlayerState playerState = ServerState.getPlayerState(handler.player);
 
             PacketByteBuf data = PacketByteBufs.create();
-            playerState.regions.forEach((region, coords) -> {
-                data.writeDouble(coords.x);
-                data.writeDouble(coords.y);
-                data.writeDouble(coords.z);
+            playerState.regions.forEach((region, tRegion) -> {
+                data.writeDouble(tRegion.x);
+                data.writeDouble(tRegion.y);
+                data.writeDouble(tRegion.z);
+                data.writeString(tRegion.name);
+                data.writeString(tRegion.biomeNamespace);
+                data.writeString(tRegion.biomePath);
             });
             ServerPlayNetworking.send(handler.player, new Identifier(RegionMod.MOD_ID, "regions"), data);
         }));
