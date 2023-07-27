@@ -1,0 +1,5 @@
+{
+  "tondoas-region.command.region.delete.not_player": "Only a player should run this command",
+  "tondoas-region.command.region.delete.not_found": "No region '%s' found! ",
+  "tondoas-region.command.region.delete.deleted": "region deleted!"
+}
