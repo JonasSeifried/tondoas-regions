@@ -83,4 +83,8 @@ public class ServerState extends PersistentState {
 
         return serverState.players.computeIfAbsent(player.getUuid(), uuid -> new PlayerState());
     }
+
+    public static void markDirty(MinecraftServer server) {
+        getServerState(server).markDirty();
+    }
 }
