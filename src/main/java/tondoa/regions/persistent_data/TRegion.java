@@ -13,6 +13,9 @@ public class TRegion {
     public final String name;
 
     public TRegion(Vec3d coords, Identifier biome, String name) {this(coords.x,coords.y,coords.z, biome, name);}
+    public TRegion(TRegion t, String name) {
+        this(t.x,t.y,t.z, new Identifier(t.biomeNamespace, t.biomePath), name);}
+
 
     public TRegion(double x, double y, double z, Identifier biome, String name) {
         this.x = x;
