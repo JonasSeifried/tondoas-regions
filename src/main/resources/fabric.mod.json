@@ -15,8 +15,8 @@
 	"icon": "assets/tondoas-regions/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"tondoa.regions.RegionMod"
+		"client": [
+			"tondoa.regions.ClientRegionMod"
 		]
 	},
 	"mixins": [

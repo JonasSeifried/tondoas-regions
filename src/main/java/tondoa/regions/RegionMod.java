@@ -1,10 +1,8 @@
 package tondoa.regions;
 
 import net.fabricmc.api.ModInitializer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tondoa.regions.commands.CommandInitializer;
 import tondoa.regions.persistent_data.ModPersistence;
 
 public class RegionMod implements ModInitializer {
@@ -20,8 +18,6 @@ public class RegionMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-
-		CommandInitializer.registerCommands();
 		ModPersistence.registerPersistentStates();
 
 		LOGGER.info("tondoas-regions Mod initialized");
