@@ -22,7 +22,7 @@ public class RegionsCommand {
     public static int regions(FabricClientCommandSource source) throws CommandSyntaxException {
         ClientPlayerEntity player = source.getPlayer();
         if (player == null) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_player")).create();
+            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_player")).create();
         }
 
         MutableText text = Text.literal("List of all your regions\n");

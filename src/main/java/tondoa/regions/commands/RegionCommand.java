@@ -45,9 +45,8 @@ public class RegionCommand {
     private static int openGui(FabricClientCommandSource source) throws CommandSyntaxException {
         ClientPlayerEntity player = source.getPlayer();
         if (player == null) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_player")).create();
+            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_player")).create();
         }
-            player.sendMessage(Text.literal("test"));
             MinecraftClient.getInstance().setScreen(new RegionScreen(new RegionGui()));
         return 1;
     }
@@ -55,20 +54,20 @@ public class RegionCommand {
     private static int renameRegion(FabricClientCommandSource source, String region, String newName) throws CommandSyntaxException {
         ClientPlayerEntity player = source.getPlayer();
         if (player == null) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_player")).create();
+            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_player")).create();
         }
 
         if (!DataStorage.regions.containsKey(region)) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_found", region)).create();
+            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_found", region)).create();
         }
         if (DataStorage.regions.containsKey(newName)) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.already_used", newName)).create();
+            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.already_used", newName)).create();
         }
 
         TRegion nTRegion = new TRegion(DataStorage.regions.get(region), newName);
         DataStorage.regions.put(newName, nTRegion);
         DataStorage.regions.remove(region);
-        player.sendMessage(Text.translatable("tondoas-region.command.region.renamed", region, newName)
+        player.sendMessage(Text.translatable("tondoas-regions.command.region.renamed", region, newName)
                 .setStyle(Style.EMPTY.withColor(Formatting.GREEN)));
         return 1;
     }
@@ -76,17 +75,17 @@ public class RegionCommand {
     public static int delRegion(FabricClientCommandSource source, String region) throws CommandSyntaxException {
         ClientPlayerEntity player = source.getPlayer();
         if (player == null) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_player")).create();
+            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_player")).create();
         }
 
         if (DataStorage.regions.containsKey(region)) {
-            player.sendMessage(Text.translatable("tondoas-region.command.region.not_found", region)
+            player.sendMessage(Text.translatable("tondoas-regions.command.region.not_found", region)
                     .setStyle(Style.EMPTY.withColor(Formatting.YELLOW)));
             return 0;
         }
 
         DataStorage.regions.remove(region);
-        player.sendMessage(Text.translatable("tondoas-region.command.region.delete.deleted")
+        player.sendMessage(Text.translatable("tondoas-regions.command.region.delete.deleted")
                 .setStyle(Style.EMPTY.withColor(Formatting.RED)));
         return 1;
 
@@ -111,7 +110,7 @@ public class RegionCommand {
 
         if (DataStorage.regions.containsKey(tRegion.name)) {
             player.sendMessage(Text.translatable(
-                    "tondoas-region.command.region.already_used", tRegion.name));
+                    "tondoas-regions.command.region.already_used", tRegion.name));
             return 0;
         }
         DataStorage.regions.put(tRegion.name, tRegion);

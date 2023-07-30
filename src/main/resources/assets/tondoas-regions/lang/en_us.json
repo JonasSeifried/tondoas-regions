@@ -1,7 +1,9 @@
 {
-  "tondoas-region.command.region.delete.not_player": "Only a player should run this command",
-  "tondoas-region.command.region.not_found": "No region '%s' found! ",
-  "tondoas-region.command.region.already_used": "region %s is already used!",
-  "tondoas-region.command.region.renamed": "renamed %s to %s",
-  "tondoas-region.command.region.delete.deleted": "region deleted!"
+  "tondoas-regions.command.region.not_player": "Only a player should run this command",
+  "tondoas-regions.command.region.not_found": "No region '%s' found! ",
+  "tondoas-regions.command.region.already_used": "region %s is already used!",
+  "tondoas-regions.command.region.renamed": "renamed %s to %s",
+  "tondoas-regions.command.region.delete.deleted": "region deleted!",
+  "key.tondoas-regions.open_gui": "Open Gui",
+  "category.tondoas-regions": "Tondoas Regions"
 }
