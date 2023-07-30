@@ -8,9 +8,8 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import tondoa.regions.persistent_data.PlayerState;
-import tondoa.regions.persistent_data.ClientState;
-import tondoa.regions.persistent_data.TRegion;
+import tondoa.regions.data_storage.DataStorage;
+import tondoa.regions.data_storage.TRegion;
 
 public class RegionsCommand {
 
@@ -25,13 +24,11 @@ public class RegionsCommand {
         if (player == null) {
             throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_player")).create();
         }
-        ClientState clientState = ClientState.getClientState();
-        PlayerState playerState = clientState.playerState;
 
         MutableText text = Text.literal("List of all your regions\n");
 
-        int c = playerState.regions.size();
-        for( TRegion region : playerState.regions.values()) {
+        int c = DataStorage.regions.size();
+        for( TRegion region : DataStorage.regions.values()) {
             text.append(region.getText());
             if (c-- != 1) text.append("\n");
         }

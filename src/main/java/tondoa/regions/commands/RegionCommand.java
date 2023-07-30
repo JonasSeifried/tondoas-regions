@@ -15,11 +15,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
+import tondoa.regions.data_storage.DataStorage;
+import tondoa.regions.data_storage.TRegion;
 import tondoa.regions.gui.RegionGui;
 import tondoa.regions.gui.RegionScreen;
-import tondoa.regions.persistent_data.ClientState;
-import tondoa.regions.persistent_data.PlayerState;
-import tondoa.regions.persistent_data.TRegion;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
@@ -58,20 +57,17 @@ public class RegionCommand {
         if (player == null) {
             throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_player")).create();
         }
-        ClientState clientState = ClientState.getClientState();
-        PlayerState playerState = clientState.playerState;
 
-        if (!playerState.regions.containsKey(region)) {
+        if (!DataStorage.regions.containsKey(region)) {
             throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_found", region)).create();
         }
-        if (playerState.regions.containsKey(newName)) {
+        if (DataStorage.regions.containsKey(newName)) {
             throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.already_used", newName)).create();
         }
 
-        TRegion nTRegion = new TRegion(playerState.regions.get(region), newName);
-        playerState.regions.put(newName, nTRegion);
-        playerState.regions.remove(region);
-        clientState.markDirty();
+        TRegion nTRegion = new TRegion(DataStorage.regions.get(region), newName);
+        DataStorage.regions.put(newName, nTRegion);
+        DataStorage.regions.remove(region);
         player.sendMessage(Text.translatable("tondoas-region.command.region.renamed", region, newName)
                 .setStyle(Style.EMPTY.withColor(Formatting.GREEN)));
         return 1;
@@ -82,17 +78,14 @@ public class RegionCommand {
         if (player == null) {
             throw new SimpleCommandExceptionType(Text.translatable("tondoas-region.command.region.not_player")).create();
         }
-        ClientState clientState = ClientState.getClientState();
-        PlayerState playerState = clientState.playerState;
 
-        if (!playerState.regions.containsKey(region)) {
+        if (DataStorage.regions.containsKey(region)) {
             player.sendMessage(Text.translatable("tondoas-region.command.region.not_found", region)
                     .setStyle(Style.EMPTY.withColor(Formatting.YELLOW)));
             return 0;
         }
 
-        playerState.regions.remove(region);
-        clientState.markDirty();
+        DataStorage.regions.remove(region);
         player.sendMessage(Text.translatable("tondoas-region.command.region.delete.deleted")
                 .setStyle(Style.EMPTY.withColor(Formatting.RED)));
         return 1;
@@ -110,21 +103,18 @@ public class RegionCommand {
         Identifier biomeIdentifier = biomeRegistry.getKey().get().getValue();
 
 
-        ClientState clientState = ClientState.getClientState();
-        PlayerState playerState = clientState.playerState;
         TRegion tRegion;
         if (region == null)
             tRegion = new TRegion(coords, biomeIdentifier, biomeIdentifier.getPath());
         else
             tRegion = new TRegion(coords, biomeIdentifier, region);
 
-        if (playerState.regions.containsKey(tRegion.name)) {
+        if (DataStorage.regions.containsKey(tRegion.name)) {
             player.sendMessage(Text.translatable(
                     "tondoas-region.command.region.already_used", tRegion.name));
             return 0;
         }
-        playerState.regions.put(tRegion.name, tRegion);
-        clientState.markDirty();
+        DataStorage.regions.put(tRegion.name, tRegion);
         player.sendMessage(tRegion.getText());
         return 1;
     }

@@ -1,4 +1,4 @@
-package tondoa.regions.persistent_data;
+package tondoa.regions.data_storage;
 
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;

@@ -3,7 +3,6 @@ package tondoa.regions;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tondoa.regions.persistent_data.ModPersistence;
 
 public class RegionMod implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -18,7 +17,6 @@ public class RegionMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		ModPersistence.registerPersistentStates();
 
 		LOGGER.info("tondoas-regions Mod initialized");
 	}
