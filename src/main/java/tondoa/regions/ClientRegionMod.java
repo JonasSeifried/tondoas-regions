@@ -3,6 +3,7 @@ package tondoa.regions;
 import net.fabricmc.api.ClientModInitializer;
 import tondoa.regions.commands.CommandInitializer;
 import tondoa.regions.data_storage.DataStorage;
+import tondoa.regions.keyBindings.RegionKeyBinding;
 
 public class ClientRegionMod implements ClientModInitializer {
 	@Override
@@ -14,6 +15,7 @@ public class ClientRegionMod implements ClientModInitializer {
 
 		DataStorage.register();
 		CommandInitializer.registerCommands();
+		RegionKeyBinding.registerKeyBindings();
 
 		RegionMod.LOGGER.info("tondoas-regions ClientMod initialized");
 	}
