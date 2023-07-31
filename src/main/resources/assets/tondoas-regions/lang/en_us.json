@@ -5,5 +5,6 @@
   "tondoas-regions.command.region.renamed": "renamed %s to %s",
   "tondoas-regions.command.region.delete.deleted": "region deleted!",
   "key.tondoas-regions.open_gui": "Open Gui",
-  "category.tondoas-regions": "Tondoas Regions"
+  "category.tondoas-regions": "Tondoas Regions",
+  "tondoas-regions.gui.search_placeholder": "Search..."
 }
