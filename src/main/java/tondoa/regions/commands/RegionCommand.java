@@ -61,7 +61,7 @@ public class RegionCommand {
             throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_found", region)).create();
         }
         if (DataStorage.regions.containsKey(newName)) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.already_used", newName)).create();
+            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.name_already_used", newName)).create();
         }
 
         TRegion nTRegion = new TRegion(DataStorage.regions.get(region), newName);
@@ -110,7 +110,7 @@ public class RegionCommand {
 
         if (DataStorage.regions.containsKey(tRegion.name)) {
             player.sendMessage(Text.translatable(
-                    "tondoas-regions.command.region.already_used", tRegion.name));
+                    "tondoas-regions.name_already_used", tRegion.name));
             return 0;
         }
         DataStorage.regions.put(tRegion.name, tRegion);

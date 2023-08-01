@@ -4,7 +4,6 @@ import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WListPanel;
-import io.github.cottonmc.cotton.gui.widget.WTextField;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.client.MinecraftClient;
@@ -12,6 +11,7 @@ import net.minecraft.text.Text;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
 import tondoa.regions.gui.wigets.RegionPanel;
+import tondoa.regions.gui.wigets.RenamePanel;
 
 import java.util.function.BiConsumer;
 
@@ -22,7 +22,6 @@ public class RegionGui extends LightweightGuiDescription {
         setRootPanel(root);
         root.setInsets(Insets.ROOT_PANEL);
 
-        WTextField textField = new WTextField(Text.translatable("tondoas-regions.gui.search_placeholder"));
 
         BiConsumer<TRegion, RegionPanel> config = (TRegion tRegion, RegionPanel panel) -> {
             int maxLength = 10;
@@ -38,10 +37,16 @@ public class RegionGui extends LightweightGuiDescription {
 
             });
 
+            panel.renameButton.setOnClick(() -> {
+                RenamePanel renamePanel = new RenamePanel(tRegion);
+                root.add(renamePanel, root.getWidth()/18/2 - renamePanel.getWidth()/18/2, 0);
+                root.validate(this);
+            });
+
         };
         WListPanel<TRegion, RegionPanel> listPanel = new WListPanel<>(DataStorage.regions.values().stream().toList(), RegionPanel::new, config);
+        root.add(listPanel,7,2, 12, 10);
 
-        root.add(listPanel,7,2, 11, 10);
         WLabel label = new WLabel(Text.literal("Tondoas Regions"), 0xFFFFFF);
         label.setHorizontalAlignment(HorizontalAlignment.CENTER);
         root.add(label, 12, 0, 2, 1);

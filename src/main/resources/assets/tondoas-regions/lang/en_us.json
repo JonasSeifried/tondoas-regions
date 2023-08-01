@@ -1,10 +1,13 @@
 {
   "tondoas-regions.command.region.not_player": "Only a player should run this command",
   "tondoas-regions.command.region.not_found": "No region '%s' found! ",
-  "tondoas-regions.command.region.already_used": "region %s is already used!",
   "tondoas-regions.command.region.renamed": "renamed %s to %s",
   "tondoas-regions.command.region.delete.deleted": "region deleted!",
   "key.tondoas-regions.open_gui": "Open Gui",
   "category.tondoas-regions": "Tondoas Regions",
-  "tondoas-regions.gui.search_placeholder": "Search..."
+  "tondoas-regions.gui.search_placeholder": "search...",
+  "tondoas-regions.gui.rename": "rename",
+  "tondoas-regions.no_empty_name": "Can't be empty",
+  "tondoas-regions.name_already_used": "%s is already used!",
+  "tondoas-regions.cancel": "cancel"
 }
