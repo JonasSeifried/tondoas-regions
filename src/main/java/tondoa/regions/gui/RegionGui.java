@@ -11,6 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
+import tondoa.regions.gui.wigets.RegionPanel;
 
 import java.util.function.BiConsumer;
 

@@ -1,4 +1,4 @@
-package tondoa.regions.gui;
+package tondoa.regions.gui.wigets;
 
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
@@ -7,11 +7,11 @@ import net.minecraft.text.Text;
 
 public class RegionPanel extends WPlainPanel {
 
-    WLabel nameLabel;
+    public WLabel nameLabel;
 
-    WLabel coordsLabel;
+    public WLabel coordsLabel;
 
-    WButton deleteButton;
+    public WButton deleteButton;
 
     public RegionPanel() {
         nameLabel = new WLabel(Text.literal("Region Name"), 0xFFFFFF);
