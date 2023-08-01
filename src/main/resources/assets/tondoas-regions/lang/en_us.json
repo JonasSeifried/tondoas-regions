@@ -9,5 +9,6 @@
   "tondoas-regions.gui.rename": "rename",
   "tondoas-regions.no_empty_name": "Can't be empty",
   "tondoas-regions.name_already_used": "%s is already used!",
+  "tondoas-regions.name_taken": "already taken",
   "tondoas-regions.cancel": "cancel"
 }

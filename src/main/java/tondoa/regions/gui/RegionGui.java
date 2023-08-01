@@ -8,6 +8,7 @@ import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Nullable;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
 import tondoa.regions.gui.wigets.RegionPanel;
@@ -16,6 +17,10 @@ import tondoa.regions.gui.wigets.RenamePanel;
 import java.util.function.BiConsumer;
 
 public class RegionGui extends LightweightGuiDescription {
+
+    @Nullable
+    RenamePanel activeRenamePanel = null;
+
     public RegionGui() {
         setFullscreen(true);
         WGridPanel root = new WGridPanel();
@@ -39,7 +44,10 @@ public class RegionGui extends LightweightGuiDescription {
 
             panel.renameButton.setOnClick(() -> {
                 RenamePanel renamePanel = new RenamePanel(tRegion);
-                root.add(renamePanel, root.getWidth()/18/2 - renamePanel.getWidth()/18/2, 0);
+                if (activeRenamePanel != null)
+                    root.remove(activeRenamePanel);
+                activeRenamePanel = renamePanel;
+                root.add(renamePanel, root.getWidth()/18/2 - renamePanel.getWidth()/18/2, 2);
                 root.validate(this);
             });
 
