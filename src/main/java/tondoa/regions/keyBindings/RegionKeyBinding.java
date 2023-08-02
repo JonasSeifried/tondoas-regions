@@ -4,9 +4,9 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import tondoa.regions.RegionMod;
+import tondoa.regions.gui.AddRegionGui;
 import tondoa.regions.gui.RegionGui;
 import tondoa.regions.gui.RegionScreen;
 
@@ -16,9 +16,14 @@ public class RegionKeyBinding {
     public static void registerKeyBindings() {
 
         registerOpenGuiKey();
+        registerCreateRegionGuiKey();
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openGuiKey.wasPressed()) {
                 client.setScreen(new RegionScreen(new RegionGui()));
+            }
+            while (createRegionKey.wasPressed()) {
+                client.setScreen(new RegionScreen(new AddRegionGui()));
             }
         });
 
@@ -30,6 +35,14 @@ public class RegionKeyBinding {
                 "key.tondoas-regions.open_gui",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_K,
+                "category.tondoas-regions"
+        ));
+    }
+    private static void registerCreateRegionGuiKey() {
+        createRegionKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.tondoas-regions.create_gui",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
                 "category.tondoas-regions"
         ));
     }

@@ -9,7 +9,6 @@ import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
@@ -27,9 +26,10 @@ public class RegionGui extends LightweightGuiDescription {
     @Nullable
     InputPanel activeInputPanel = null;
 
+    WGridPanel root = new WGridPanel();
+
     public RegionGui() {
         setFullscreen(true);
-        WGridPanel root = new WGridPanel();
         setRootPanel(root);
         root.setInsets(Insets.ROOT_PANEL);
 
@@ -69,19 +69,21 @@ public class RegionGui extends LightweightGuiDescription {
         root.add(label, 12, 0, 2, 1);
 
         WButton addButton = new WButton(Text.translatable("tondoas-regions.add"));
-        addButton.setOnClick(() -> {
-            AddRegionPanel addRegionPanel = new AddRegionPanel();
-            if (activeInputPanel != null)
-                root.remove(activeInputPanel);
-            activeInputPanel = addRegionPanel;
-            root.add(addRegionPanel, root.getWidth()/18/2 - addRegionPanel.getWidth()/18/2, 2);
-            root.validate(this);
-
-        });
+        addButton.setOnClick(this::openAddRegionPanel);
         root.add(addButton, 12, 11, 2, 1);
 
         root.validate(this);
 
+    }
+
+
+    public void openAddRegionPanel() {
+        AddRegionPanel addRegionPanel = new AddRegionPanel();
+        if (activeInputPanel != null)
+            root.remove(activeInputPanel);
+        activeInputPanel = addRegionPanel;
+        root.add(addRegionPanel, root.getWidth()/18/2 - addRegionPanel.getWidth()/18/2, 2);
+        root.validate(this);
     }
 
 }
