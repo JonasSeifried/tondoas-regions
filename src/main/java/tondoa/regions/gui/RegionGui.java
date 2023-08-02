@@ -17,6 +17,8 @@ import tondoa.regions.gui.wigets.InputPanel;
 import tondoa.regions.gui.wigets.RegionPanel;
 import tondoa.regions.gui.wigets.RenamePanel;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class RegionGui extends LightweightGuiDescription {
@@ -55,7 +57,10 @@ public class RegionGui extends LightweightGuiDescription {
             });
 
         };
-        WListPanel<TRegion, RegionPanel> listPanel = new WListPanel<>(DataStorage.regions.values().stream().toList(), RegionPanel::new, config);
+
+        List<TRegion> regions = DataStorage.regions.values().stream().sorted(Comparator.comparing(tRegion -> tRegion.name)).toList();
+
+        WListPanel<TRegion, RegionPanel> listPanel = new WListPanel<>(regions, RegionPanel::new, config);
         root.add(listPanel,7,2, 12, 10);
 
         WLabel label = new WLabel(Text.literal("Tondoas Regions"), 0xFFFFFF);
@@ -75,6 +80,7 @@ public class RegionGui extends LightweightGuiDescription {
         root.add(addButton, 12, 11, 2, 1);
 
         root.validate(this);
+
     }
 
 }

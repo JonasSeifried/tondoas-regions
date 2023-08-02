@@ -1,10 +1,11 @@
 package tondoa.regions.gui.wigets;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
-
-import java.util.Objects;
+import tondoa.regions.gui.RegionGui;
+import tondoa.regions.gui.RegionScreen;
 
 public class RenamePanel extends InputPanel {
 
@@ -38,8 +39,7 @@ public class RenamePanel extends InputPanel {
         DataStorage.regions.put(newName, new TRegion(tRegion, newName));
         DataStorage.regions.remove(tRegion.name);
 
-        //Close after handling
-        Objects.requireNonNull(getParent()).remove(this);
+        MinecraftClient.getInstance().setScreen(new RegionScreen(new RegionGui()));
 
 
     }
