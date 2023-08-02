@@ -9,6 +9,7 @@ import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
@@ -39,7 +40,7 @@ public class RegionGui extends LightweightGuiDescription {
             if (name.length() >= maxLength )
                 name = name.substring(0, maxLength-2) + "..";
             panel.nameLabel.setText(Text.literal(name));
-            panel.coordsLabel.setText(Text.literal(String.format("%.2f %.2f %.2f", tRegion.x, tRegion.y, tRegion.z)));
+            panel.coordsLabel.setText(Text.literal(String.format("%.0f %.0f %.0f", tRegion.x, tRegion.y, tRegion.z)));
 
             panel.deleteButton.setOnClick(() -> {
                 DataStorage.regions.remove(tRegion.name);
