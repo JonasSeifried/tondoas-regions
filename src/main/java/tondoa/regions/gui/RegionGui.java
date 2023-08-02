@@ -1,6 +1,7 @@
 package tondoa.regions.gui;
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
+import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WListPanel;
@@ -11,6 +12,8 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
+import tondoa.regions.gui.wigets.AddRegionPanel;
+import tondoa.regions.gui.wigets.InputPanel;
 import tondoa.regions.gui.wigets.RegionPanel;
 import tondoa.regions.gui.wigets.RenamePanel;
 
@@ -19,7 +22,7 @@ import java.util.function.BiConsumer;
 public class RegionGui extends LightweightGuiDescription {
 
     @Nullable
-    RenamePanel activeRenamePanel = null;
+    InputPanel activeInputPanel = null;
 
     public RegionGui() {
         setFullscreen(true);
@@ -44,9 +47,9 @@ public class RegionGui extends LightweightGuiDescription {
 
             panel.renameButton.setOnClick(() -> {
                 RenamePanel renamePanel = new RenamePanel(tRegion);
-                if (activeRenamePanel != null)
-                    root.remove(activeRenamePanel);
-                activeRenamePanel = renamePanel;
+                if (activeInputPanel != null)
+                    root.remove(activeInputPanel);
+                activeInputPanel = renamePanel;
                 root.add(renamePanel, root.getWidth()/18/2 - renamePanel.getWidth()/18/2, 2);
                 root.validate(this);
             });
@@ -58,6 +61,18 @@ public class RegionGui extends LightweightGuiDescription {
         WLabel label = new WLabel(Text.literal("Tondoas Regions"), 0xFFFFFF);
         label.setHorizontalAlignment(HorizontalAlignment.CENTER);
         root.add(label, 12, 0, 2, 1);
+
+        WButton addButton = new WButton(Text.translatable("tondoas-regions.add"));
+        addButton.setOnClick(() -> {
+            AddRegionPanel addRegionPanel = new AddRegionPanel();
+            if (activeInputPanel != null)
+                root.remove(activeInputPanel);
+            activeInputPanel = addRegionPanel;
+            root.add(addRegionPanel, root.getWidth()/18/2 - addRegionPanel.getWidth()/18/2, 2);
+            root.validate(this);
+
+        });
+        root.add(addButton, 12, 11, 2, 1);
 
         root.validate(this);
     }
