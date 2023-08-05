@@ -17,7 +17,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
-import tondoa.regions.gui.RegionGui;
 import tondoa.regions.gui.RegionScreen;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
@@ -47,7 +46,7 @@ public class RegionCommand {
         if (player == null) {
             throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_player")).create();
         }
-            MinecraftClient.getInstance().setScreen(new RegionScreen(new RegionGui()));
+            MinecraftClient.getInstance().setScreen(new RegionScreen());
         return 1;
     }
 
