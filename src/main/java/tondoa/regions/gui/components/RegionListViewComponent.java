@@ -58,7 +58,7 @@ public class RegionListViewComponent extends FlowLayout {
         String searchKey = searchTextBox.getText().toLowerCase();
        tRegionComponentContainer.clearChildren();
         DataStorage.sortedRegions()
-                .filter(t ->  t.name.toLowerCase().startsWith(searchKey) || t.getTranslatedBiome().getString().toLowerCase().startsWith(searchKey))
+                .filter(t ->  t.name.toLowerCase().contains(searchKey) || t.getTranslatedBiome().getString().toLowerCase().startsWith(searchKey))
                 .forEach(t -> tRegionComponentContainer.child(new TRegionComponent(t, this)));
     }
 
