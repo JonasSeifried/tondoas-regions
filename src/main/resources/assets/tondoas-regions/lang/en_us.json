@@ -1,9 +1,7 @@
 {
   "tondoas-regions.command.region.not_player": "Only a player should run this command",
-  "tondoas-regions.command.region.not_found": "No region '%s' found! ",
-  "tondoas-regions.command.region.renamed": "renamed %s to %s",
-  "tondoas-regions.command.region.delete.deleted": "region deleted!",
   "key.tondoas-regions.open_gui": "Open Gui",
+  "key.tondoas-regions.add_region": "Add Region",
   "category.tondoas-regions": "Tondoas Regions",
   "tondoas-regions.search_placeholder": "search..",
   "tondoas-regions.placeholder_name": "name..",
