@@ -24,7 +24,6 @@ public class RegionScreen extends BaseOwoScreen<FlowLayout> {
 
         rootComponent
                 .child(Components.label(Text.literal("Tondoas Regions")).margins(Insets.of(5,20,0,0)))
-                .child(Components.textBox(Sizing.fill(20)))
                 .child(RegionListViewContainer.build());
 
     }
