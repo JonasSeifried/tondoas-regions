@@ -38,7 +38,7 @@ public class RegionKeyBinding {
     }
     private static void registerCreateRegionGuiKey() {
         createRegionKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.tondoas-regions.create_gui",
+                "key.tondoas-regions.add_region",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_B,
                 "category.tondoas-regions"
