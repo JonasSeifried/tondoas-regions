@@ -5,7 +5,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Style;
@@ -17,7 +16,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
-import tondoa.regions.gui.RegionScreen;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
