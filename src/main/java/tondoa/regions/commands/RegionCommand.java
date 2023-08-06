@@ -33,23 +33,11 @@ public class RegionCommand {
                     .then(argument("region", StringArgumentType.word())
                         .then(argument("newName", StringArgumentType.word())
                             .executes(ctx -> renameRegion(ctx.getSource(), StringArgumentType.getString(ctx, "region"), StringArgumentType.getString(ctx, "newName"))))))
-                .then(literal("gui")
-                        .executes(ctx -> openGui(ctx.getSource())))
                 .then(argument("region", StringArgumentType.word())
                         .executes(ctx -> addRegion(ctx.getSource(), StringArgumentType.getString(ctx,"region"))))
                 .executes(ctx -> addRegion(ctx.getSource(), null)));
 
     }
-
-    private static int openGui(FabricClientCommandSource source) throws CommandSyntaxException {
-        ClientPlayerEntity player = source.getPlayer();
-        if (player == null) {
-            throw new SimpleCommandExceptionType(Text.translatable("tondoas-regions.command.region.not_player")).create();
-        }
-            MinecraftClient.getInstance().setScreen(new RegionScreen());
-        return 1;
-    }
-
     private static int renameRegion(FabricClientCommandSource source, String region, String newName) throws CommandSyntaxException {
         ClientPlayerEntity player = source.getPlayer();
         if (player == null) {
