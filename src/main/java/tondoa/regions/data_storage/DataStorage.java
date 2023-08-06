@@ -13,9 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class DataStorage {
 
@@ -80,5 +79,12 @@ public class DataStorage {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    public static Stream<TRegion> sortedRegions() {
+        return sortedRegions(Comparator.comparing(t -> t.name));
+    }
+
+    public static Stream<TRegion> sortedRegions(java.util.Comparator<? super TRegion> comparator) {
+        return regions.values().stream().sorted(comparator);
     }
 }

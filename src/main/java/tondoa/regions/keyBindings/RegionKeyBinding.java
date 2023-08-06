@@ -6,8 +6,6 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 import tondoa.regions.RegionMod;
-import tondoa.regions.gui.AddRegionGui;
-import tondoa.regions.gui.RegionGui;
 import tondoa.regions.gui.RegionScreen;
 
 public class RegionKeyBinding {
@@ -20,10 +18,10 @@ public class RegionKeyBinding {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openGuiKey.wasPressed()) {
-                client.setScreen(new RegionScreen(new RegionGui()));
+                client.setScreen(new RegionScreen());
             }
             while (createRegionKey.wasPressed()) {
-                client.setScreen(new RegionScreen(new AddRegionGui()));
+                client.setScreen(new RegionScreen(true));
             }
         });
 
