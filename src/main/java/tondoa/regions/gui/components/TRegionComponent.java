@@ -17,6 +17,8 @@ public class TRegionComponent extends FlowLayout {
     ButtonComponent deleteButton = Components.button(Text.literal("X"), b -> handleDelete());
     ButtonComponent renameButton = Components.button(Text.literal(".."), b -> createRenameModal());
 
+    TextBoxModalComponent renameModal = new TextBoxModalComponent();
+
     public TRegionComponent(TRegion tRegion, RegionListViewComponent regionListViewComponent) {
         this(tRegion, regionListViewComponent, Sizing.fill(100), Sizing.content(), Algorithm.HORIZONTAL);
     }
@@ -56,8 +58,8 @@ public class TRegionComponent extends FlowLayout {
     }
 
     public void createRenameModal() {
-        TextBoxModalComponent renameModal = new TextBoxModalComponent();
         renameModal.label.text(Text.translatable("tondoas-regions.rename"));
+        renameModal.label.color(Color.WHITE);
         renameModal.acceptButton.setMessage(Text.translatable("tondoas-regions.rename"));
         renameModal.acceptButton.onPress(b -> handleRename(renameModal.textBox.getText()));
         renameModal.textBox.text(tRegion.name);
@@ -66,14 +68,7 @@ public class TRegionComponent extends FlowLayout {
     }
 
     private void handleRename(String newName) {
-        if (newName.isEmpty()) {
-            // addErrorLabel(Text.translatable("tondoas-regions.no_empty_name"));
-            return;
-        }
-        if(DataStorage.regions.containsKey(newName)) {
-            // addErrorLabel(Text.translatable("tondoas-regions.name_taken"));
-            return;
-        }
+        if (RegionListViewComponent.isEmptyOrContainsKey(newName, renameModal)) return;
 
         DataStorage.regions.put(newName, new TRegion(tRegion, newName));
         DataStorage.regions.remove(tRegion.name);
