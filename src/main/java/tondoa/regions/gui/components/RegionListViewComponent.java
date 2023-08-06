@@ -20,18 +20,14 @@ import tondoa.regions.data_storage.TRegion;
 public class RegionListViewComponent extends FlowLayout {
 
     public TextBoxComponent searchTextBox = Components.textBox(Sizing.fill(40));
-
     public ButtonComponent createRegionButton = Components.button(Text.translatable("tondoas-regions.new"), b -> createAddRegionModal());
-
-
-
+    TextBoxModalComponent addRegionModal = new TextBoxModalComponent();
     public FlowLayout tRegionComponentContainer = Containers.verticalFlow(Sizing.content(), Sizing.content());
 
     public RegionListViewComponent() {
         this(Sizing.fill(70), Sizing.content(), Algorithm.VERTICAL);
-
-
     }
+
     public RegionListViewComponent(Sizing horizontalSizing, Sizing verticalSizing, Algorithm algorithm) {
         super(horizontalSizing, verticalSizing, algorithm);
 
@@ -56,18 +52,19 @@ public class RegionListViewComponent extends FlowLayout {
 
     public void updateTRegionComponentContainer() {
         String searchKey = searchTextBox.getText().toLowerCase();
-       tRegionComponentContainer.clearChildren();
+        tRegionComponentContainer.clearChildren();
         DataStorage.sortedRegions()
-                .filter(t ->  t.name.toLowerCase().contains(searchKey) || t.getTranslatedBiome().getString().toLowerCase().startsWith(searchKey))
+                .filter(t -> t.name.toLowerCase().contains(searchKey) || t.getTranslatedBiome().getString().toLowerCase().startsWith(searchKey))
                 .forEach(t -> tRegionComponentContainer.child(new TRegionComponent(t, this)));
     }
 
     public void createAddRegionModal() {
-        TextBoxModalComponent addRegionModal = new TextBoxModalComponent();
+
         addRegionModal.margins(Insets.of(20));
         addRegionModal.surface(Surface.DARK_PANEL);
         addRegionModal.padding(Insets.of(5));
         addRegionModal.label.text(Text.translatable("tondoas-regions.add_region"));
+        addRegionModal.label.color(Color.WHITE);
         addRegionModal.acceptButton.setMessage(Text.translatable("tondoas-regions.add"));
         addRegionModal.acceptButton.onPress(b -> handleAddRegion(addRegionModal.textBox.getText()));
         addRegionModal.cancelButton.onPress(b -> updateTRegionComponentContainer());
@@ -77,14 +74,7 @@ public class RegionListViewComponent extends FlowLayout {
     }
 
     private void handleAddRegion(String name) {
-        if(name.isEmpty()) {
-
-            return;
-        }
-        if(DataStorage.regions.containsKey(name)) {
-
-            return;
-        }
+        if (isEmptyOrContainsKey(name, addRegionModal)) return;
 
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
@@ -98,5 +88,19 @@ public class RegionListViewComponent extends FlowLayout {
         DataStorage.regions.put(name, tRegion);
 
         updateTRegionComponentContainer();
+    }
+
+    public static boolean isEmptyOrContainsKey(String name, TextBoxModalComponent addRegionModal) {
+        if (name.isEmpty()) {
+            addRegionModal.label.text(Text.translatable("tondoas-regions.no_empty_name"));
+            addRegionModal.label.color(Color.RED);
+            return true;
+        }
+        if(DataStorage.regions.containsKey(name)) {
+            addRegionModal.label.text(Text.translatable("tondoas-regions.name_taken"));
+            addRegionModal.label.color(Color.RED);
+            return true;
+        }
+        return false;
     }
 }
