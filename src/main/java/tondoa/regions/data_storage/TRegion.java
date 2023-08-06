@@ -33,5 +33,9 @@ public class TRegion {
         return Text.literal(String.format("%s [%.3f/%.3f/%.3f]", name, x, y, z));
     }
 
+    public Text getTranslatedBiome() {
+        return Text.translatable(String.format("biome.%s.%s", biomeNamespace, biomePath));
+    }
+
 }
 
