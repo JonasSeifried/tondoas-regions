@@ -4,10 +4,12 @@ import io.wispforest.owo.ui.component.Components;
 import io.wispforest.owo.ui.component.TextBoxComponent;
 import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
-import io.wispforest.owo.ui.core.*;
+import io.wispforest.owo.ui.core.HorizontalAlignment;
+import io.wispforest.owo.ui.core.Insets;
+import io.wispforest.owo.ui.core.Sizing;
+import io.wispforest.owo.ui.core.Surface;
 import net.minecraft.text.Text;
 import tondoa.regions.data_storage.DataStorage;
-import tondoa.regions.data_storage.TRegion;
 
 public class RegionListViewComponent extends FlowLayout {
 
