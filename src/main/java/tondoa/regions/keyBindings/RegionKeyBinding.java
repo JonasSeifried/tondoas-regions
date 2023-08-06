@@ -21,6 +21,7 @@ public class RegionKeyBinding {
                 client.setScreen(new RegionScreen());
             }
             while (createRegionKey.wasPressed()) {
+                client.setScreen(new RegionScreen(true));
             }
         });
 
