@@ -7,7 +7,7 @@ import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.core.*;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
-import tondoa.regions.gui.components.RegionListViewContainer;
+import tondoa.regions.gui.components.RegionListViewComponent;
 
 public class RegionScreen extends BaseOwoScreen<FlowLayout> {
 
@@ -24,7 +24,7 @@ public class RegionScreen extends BaseOwoScreen<FlowLayout> {
 
         rootComponent
                 .child(Components.label(Text.literal("Tondoas Regions")).margins(Insets.of(5,20,0,0)))
-                .child(RegionListViewContainer.build());
+                .child(new RegionListViewComponent());
 
     }
 }
