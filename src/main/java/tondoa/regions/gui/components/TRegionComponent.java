@@ -53,7 +53,7 @@ public class TRegionComponent extends FlowLayout {
 
     public void handleDelete() {
         DataStorage.regions.remove(tRegion.name);
-        regionListViewComponent.removeChild(this);
+        regionListViewComponent.tRegionComponentContainer.removeChild(this);
     }
 
     public void createRenameModal() {
