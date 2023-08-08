@@ -36,24 +36,15 @@ public class SettingsComponent extends FlowLayout {
 
         currDimCheckBox.checked(DataStorage.config.onlyShowCurrentDimensionRegions);
         currDimCheckBox.tooltip(Text.translatable("tondoas-regions.tooltip.only_show_current_dimension_regions"));
-        currDimCheckBox.onChanged(b -> {
-            DataStorage.config.onlyShowCurrentDimensionRegions = b;
-
-        });
+        currDimCheckBox.onChanged(b -> DataStorage.config.onlyShowCurrentDimensionRegions = b);
 
         coloredBiomesCheckBox.checked(DataStorage.config.coloredBiomes);
         coloredBiomesCheckBox.tooltip(Text.translatable("tondoas-regions.tooltip.colored-biomes"));
-        coloredBiomesCheckBox.onChanged(b -> {
-            DataStorage.config.coloredBiomes = b;
-
-        });
+        coloredBiomesCheckBox.onChanged(b -> DataStorage.config.coloredBiomes = b);
 
         roundCoordinatesCheckBox.checked(DataStorage.config.roundCoordinates);
         roundCoordinatesCheckBox.tooltip(Text.translatable("tondoas-regions.tooltip.round"));
-        roundCoordinatesCheckBox.onChanged(b -> {
-            DataStorage.config.roundCoordinates = b;
-
-        });
+        roundCoordinatesCheckBox.onChanged(b -> DataStorage.config.roundCoordinates = b);
 
         footerContainer.horizontalAlignment(HorizontalAlignment.RIGHT);
         footerContainer.child(closeButton);
