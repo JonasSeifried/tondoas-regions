@@ -7,7 +7,6 @@ import net.minecraft.util.math.Vec3d;
 public class TRegion {
     public final double x, y, z;
     public Identifier biomeIdentifier;
-
     public Identifier worldIdentifier;
     public String name;
 
@@ -19,12 +18,10 @@ public class TRegion {
         this.x = x;
         this.y = y;
         this.z = z;
-
         this.name = name;
         this.biomeIdentifier = biomeIdentifier;
         this.worldIdentifier = worldIdentifier;
     }
-
 
     public Text getText() {
         return Text.literal(String.format("%s [%.3f/%.3f/%.3f]", name, x, y, z));
@@ -33,6 +30,5 @@ public class TRegion {
     public Text getTranslatedBiome() {
         return Text.translatable(String.format("biome.%s.%s", biomeIdentifier.getNamespace(), biomeIdentifier.getPath()));
     }
-
 }
 

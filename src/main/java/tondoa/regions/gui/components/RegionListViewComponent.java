@@ -51,13 +51,13 @@ public class RegionListViewComponent extends FlowLayout {
         tRegionComponentContainer.clearChildren();
         Stream<TRegion> regionsStream = DataStorage.sortedRegions();
         if (DataStorage.config.onlyShowCurrentDimensionRegions) {
-
             assert MinecraftClient.getInstance().player != null;
             Identifier currWorldIdentifier = MinecraftClient.getInstance().player.getWorld().getRegistryKey().getValue();
             regionsStream = regionsStream.filter(t -> t.worldIdentifier.equals(currWorldIdentifier));
         }
         regionsStream.filter(t -> t.name.toLowerCase().contains(searchKey) ||
-                        t.getTranslatedBiome().getString().toLowerCase().startsWith(searchKey))
+                        t.getTranslatedBiome().getString().toLowerCase().contains(searchKey) ||
+                        t.worldIdentifier.getPath().contains(searchKey))
                 .forEach(t -> tRegionComponentContainer.child(new TRegionComponent(t, this)));
     }
 
