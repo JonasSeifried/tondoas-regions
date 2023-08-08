@@ -26,12 +26,5 @@
 		"java": ">=17",
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*"
-	},
-
-	"custom": {
-		"modmenu": {
-			"badges": ["client"]
-		}
 	}
-
 }
