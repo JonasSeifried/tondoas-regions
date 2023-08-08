@@ -65,6 +65,8 @@ public class RegionListViewComponent extends FlowLayout {
         addRegionModal.margins(Insets.of(20));
         addRegionModal.surface(Surface.DARK_PANEL);
         addRegionModal.padding(Insets.of(5));
+        addRegionModal.textBox.setText("");
+        addRegionModal.textBox.setPlaceholder(Text.translatable("tondoas-regions.placeholder_name"));
         addRegionModal.label.text(Text.translatable("tondoas-regions.add_region"));
         addRegionModal.label.color(Color.WHITE);
         addRegionModal.acceptButton.setMessage(Text.translatable("tondoas-regions.add"));
