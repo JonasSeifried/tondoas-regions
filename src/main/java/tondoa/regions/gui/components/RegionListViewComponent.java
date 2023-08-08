@@ -6,8 +6,13 @@ import io.wispforest.owo.ui.component.TextBoxComponent;
 import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.core.*;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import tondoa.regions.data_storage.DataStorage;
+import tondoa.regions.data_storage.TRegion;
+
+import java.util.stream.Stream;
 
 public class RegionListViewComponent extends FlowLayout {
 
@@ -27,6 +32,7 @@ public class RegionListViewComponent extends FlowLayout {
         searchTextBox.setPlaceholder(Text.translatable("tondoas-regions.search_placeholder"));
         searchTextBox.onChanged().subscribe(s -> updateTRegionComponentContainer());
         searchTextBox.verticalSizing(Sizing.fill(100));
+        createRegionButton.tooltip(Text.translatable("tondoas-regions.tooltip.add_regions"));
         createRegionButton.verticalSizing(Sizing.fill(100));
         container.child(searchTextBox)
                 .child(createRegionButton).alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
@@ -43,7 +49,14 @@ public class RegionListViewComponent extends FlowLayout {
     public void updateTRegionComponentContainer() {
         String searchKey = searchTextBox.getText().toLowerCase();
         tRegionComponentContainer.clearChildren();
-        DataStorage.sortedRegions().filter(t -> t.name.toLowerCase().contains(searchKey) ||
+        Stream<TRegion> regionsStream = DataStorage.sortedRegions();
+        if (DataStorage.config.onlyShowCurrentDimensionRegions) {
+
+            assert MinecraftClient.getInstance().player != null;
+            Identifier currWorldIdentifier = MinecraftClient.getInstance().player.getWorld().getRegistryKey().getValue();
+            regionsStream = regionsStream.filter(t -> t.worldIdentifier.equals(currWorldIdentifier));
+        }
+        regionsStream.filter(t -> t.name.toLowerCase().contains(searchKey) ||
                         t.getTranslatedBiome().getString().toLowerCase().startsWith(searchKey))
                 .forEach(t -> tRegionComponentContainer.child(new TRegionComponent(t, this)));
     }

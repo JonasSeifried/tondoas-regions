@@ -5,10 +5,11 @@
 	"name": "tondoas-regions",
 	"description": "A client-side mod for easily managing your coordinates.",
 	"authors": [
-		"Jonas Seifried"
+		"Tondoa"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
+		"homepage": "https://github.com/JonasSeifried/tondoas-regions",
+		"issues": "https://github.com/JonasSeifried/tondoas-regions/issues",
 		"sources": "https://github.com/JonasSeifried/tondoas-regions"
 	},
 	"license": "MIT",
@@ -25,6 +26,12 @@
 		"java": ">=17",
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*"
+	},
+
+	"custom": {
+		"modmenu": {
+			"badges": ["client"]
+		}
 	}
 
 }

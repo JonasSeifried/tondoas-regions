@@ -5,13 +5,23 @@
   "category.tondoas-regions": "Tondoas Regions",
   "tondoas-regions.search_placeholder": "search..",
   "tondoas-regions.placeholder_name": "name..",
+  "tondoas-regions.settings": "settings",
+  "tondoas-regions.colored_biomes": "Colored Biomes",
+  "tondoas-regions.current_dimension" : "Only current Dimension",
   "tondoas-regions.add" : "add",
   "tondoas-regions.new" : "new",
   "tondoas-regions.rename": "rename",
   "tondoas-regions.delete": "delete",
-  "tondoas-regions.add_region": "add a region",
+  "tondoas-regions.add_region": "add a Region",
   "tondoas-regions.no_empty_name": "Can't be empty",
   "tondoas-regions.name_already_used": "%s is already used!",
   "tondoas-regions.name_taken": "already taken",
-  "tondoas-regions.cancel": "cancel"
+  "tondoas-regions.cancel": "cancel",
+  "tondoas-regions.close": "close",
+  "tondoas-regions.round": "Round Coordinates",
+  "tondoas-regions.tooltip.colored-biomes": "Colors Biomes based on their Dimension",
+  "tondoas-regions.tooltip.only_show_current_dimension_regions": "Only show Regions of current Dimension",
+  "tondoas-regions.tooltip.add_regions": "Add a new Region",
+  "tondoas-regions.tooltip.round": "Round Coordinates to whole numbers"
+
 }

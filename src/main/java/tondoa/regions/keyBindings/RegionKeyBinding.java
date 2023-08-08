@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
-import tondoa.regions.RegionMod;
+import tondoa.regions.ClientRegionMod;
 import tondoa.regions.gui.RegionScreen;
 
 public class RegionKeyBinding {
@@ -25,7 +25,7 @@ public class RegionKeyBinding {
             }
         });
 
-        RegionMod.LOGGER.info("Registering Key Bindings for " + RegionMod.MOD_ID);
+        ClientRegionMod.LOGGER.info("Registering Key Bindings for " + ClientRegionMod.MOD_ID);
     }
 
     private static void registerOpenGuiKey() {

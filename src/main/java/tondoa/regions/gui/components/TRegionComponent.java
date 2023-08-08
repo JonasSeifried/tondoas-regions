@@ -33,22 +33,32 @@ public class TRegionComponent extends FlowLayout {
         renameButton.tooltip(Text.translatable("tondoas-regions.rename")).horizontalSizing(Sizing.content());
 
         nameLabel = Components.label(Text.literal(tRegion.name));
-        coordsLabel = Components.label(Text.literal(String.format("%.0f %.0f %.0f", tRegion.x, tRegion.y, tRegion.z)));
+
+        String format = DataStorage.config.roundCoordinates ? "%.0f %.0f %.0f": "%.3f %.3f %.3f";
+
+        coordsLabel = Components.label(Text.literal(String.format(format, tRegion.x, tRegion.y, tRegion.z)));
+        coordsLabel.horizontalTextAlignment(HorizontalAlignment.CENTER);
         biomeLabel = Components.label(tRegion.getTranslatedBiome());
 
-        if (tRegion.worldIdentifier.equals(World.OVERWORLD.getValue()))
-            biomeLabel.color(Color.ofRgb(0x228B22));
-        else if (tRegion.worldIdentifier.equals(World.NETHER.getValue()))
-            biomeLabel.color(Color.ofRgb(0x960018));
-        else if (tRegion.worldIdentifier.equals(World.END.getValue()))
-            biomeLabel.color(Color.ofRgb(0x6F00FF));
+        colorBiomeLabel();
 
         this.child(nameLabel.verticalTextAlignment(VerticalAlignment.CENTER).horizontalSizing(Sizing.fill(20)))
-                .child(coordsLabel.horizontalSizing(Sizing.fill(35)))
-                .child(biomeLabel.horizontalSizing(Sizing.fill(35)))
+                .child(coordsLabel.horizontalSizing(Sizing.fill(45)))
+                .child(biomeLabel.horizontalSizing(Sizing.fill(25)))
                 .child(deleteButton)
                 .child(renameButton).verticalAlignment(VerticalAlignment.CENTER)
                 .surface(Surface.DARK_PANEL).padding(Insets.of(8)).margins(Insets.bottom(2));
+    }
+
+    private void colorBiomeLabel() {
+        if (DataStorage.config.coloredBiomes) {
+            if (tRegion.worldIdentifier.equals(World.OVERWORLD.getValue()))
+                biomeLabel.color(Color.ofRgb(0x228B22));
+            else if (tRegion.worldIdentifier.equals(World.NETHER.getValue()))
+                biomeLabel.color(Color.ofRgb(0x960018));
+            else if (tRegion.worldIdentifier.equals(World.END.getValue()))
+                biomeLabel.color(Color.ofRgb(0x6F00FF));
+        }
     }
 
     public void handleDelete() {
