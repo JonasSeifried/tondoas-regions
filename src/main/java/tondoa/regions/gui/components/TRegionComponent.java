@@ -2,21 +2,23 @@ package tondoa.regions.gui.components;
 
 import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.component.Components;
+import io.wispforest.owo.ui.component.LabelComponent;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.core.*;
 import net.minecraft.text.Text;
+import net.minecraft.world.World;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
 
 public class TRegionComponent extends FlowLayout {
 
-
     TRegion tRegion;
-
     RegionListViewComponent regionListViewComponent;
     ButtonComponent deleteButton = Components.button(Text.literal("X"), b -> handleDelete());
     ButtonComponent renameButton = Components.button(Text.literal(".."), b -> createRenameModal());
-
+    LabelComponent nameLabel;
+    LabelComponent coordsLabel;
+    LabelComponent biomeLabel;
     TextBoxModalComponent renameModal = new TextBoxModalComponent();
 
     public TRegionComponent(TRegion tRegion, RegionListViewComponent regionListViewComponent) {
@@ -27,34 +29,41 @@ public class TRegionComponent extends FlowLayout {
         super(horizontalSizing, verticalSizing, algorithm);
         this.tRegion = tRegion;
         this.regionListViewComponent = regionListViewComponent;
-        deleteButton
-                .tooltip(Text.translatable("tondoas-regions.delete"))
-                .horizontalSizing(Sizing.content());
-        renameButton
-                .tooltip(Text.translatable("tondoas-regions.rename"))
-                .horizontalSizing(Sizing.content());
-        this
+        deleteButton.tooltip(Text.translatable("tondoas-regions.delete")).horizontalSizing(Sizing.content());
+        renameButton.tooltip(Text.translatable("tondoas-regions.rename")).horizontalSizing(Sizing.content());
 
-                .child(Components.label(Text.literal(tRegion.name))
+        nameLabel = Components.label(Text.literal(tRegion.name));
 
-                        .verticalTextAlignment(VerticalAlignment.CENTER)
-                        .horizontalSizing(Sizing.fill(20)))
-                .child(Components.label(Text.literal(String.format("%.0f %.0f %.0f", tRegion.x, tRegion.y, tRegion.z)))
-                        .horizontalSizing(Sizing.fill(35)))
-                .child(Components.label(tRegion.getTranslatedBiome()).color(Color.ofRgb(0x808080))
-                        .horizontalSizing(Sizing.fill(35)))
+        String format = DataStorage.config.roundCoordinates ? "%.0f %.0f %.0f": "%.3f %.3f %.3f";
+
+        coordsLabel = Components.label(Text.literal(String.format(format, tRegion.x, tRegion.y, tRegion.z)));
+        coordsLabel.horizontalTextAlignment(HorizontalAlignment.CENTER);
+        biomeLabel = Components.label(tRegion.getTranslatedBiome());
+
+        colorBiomeLabel();
+
+        this.child(nameLabel.verticalTextAlignment(VerticalAlignment.CENTER).horizontalSizing(Sizing.fill(20)))
+                .child(coordsLabel.horizontalSizing(Sizing.fill(45)))
+                .child(biomeLabel.horizontalSizing(Sizing.fill(25)))
                 .child(deleteButton)
-                .child(renameButton)
-                .verticalAlignment(VerticalAlignment.CENTER)
-                .surface(Surface.DARK_PANEL)
-                .padding(Insets.of(8))
-                .margins(Insets.bottom(2));
+                .child(renameButton).verticalAlignment(VerticalAlignment.CENTER)
+                .surface(Surface.DARK_PANEL).padding(Insets.of(8)).margins(Insets.bottom(2));
+    }
+
+    private void colorBiomeLabel() {
+        if (DataStorage.config.coloredBiomes) {
+            if (tRegion.worldIdentifier.equals(World.OVERWORLD.getValue()))
+                biomeLabel.color(Color.ofRgb(0x228B22));
+            else if (tRegion.worldIdentifier.equals(World.NETHER.getValue()))
+                biomeLabel.color(Color.ofRgb(0x960018));
+            else if (tRegion.worldIdentifier.equals(World.END.getValue()))
+                biomeLabel.color(Color.ofRgb(0x6F00FF));
+        }
     }
 
     public void handleDelete() {
         DataStorage.regions.remove(tRegion.name);
-        assert this.parent() != null;
-        this.parent().removeChild(this);
+        regionListViewComponent.tRegionComponentContainer.removeChild(this);
     }
 
     public void createRenameModal() {
@@ -68,11 +77,11 @@ public class TRegionComponent extends FlowLayout {
     }
 
     private void handleRename(String newName) {
-        if (RegionListViewComponent.isEmptyOrContainsKey(newName, renameModal)) return;
-
-        DataStorage.regions.put(newName, new TRegion(tRegion, newName));
+        if (RegionListViewComponent.isEmptyOrContainsKey(newName, renameModal))
+            return;
+        tRegion.name = newName;
+        DataStorage.regions.put(newName, tRegion);
         DataStorage.regions.remove(tRegion.name);
-
         regionListViewComponent.updateTRegionComponentContainer();
     }
 }
