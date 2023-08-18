@@ -14,7 +14,7 @@
 	},
 	"license": "MIT",
 	"icon": "assets/tondoas-regions/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"client": [
 			"tondoa.regions.ClientRegionMod"
