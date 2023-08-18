@@ -37,7 +37,7 @@ public class TRegionComponent extends FlowLayout {
         this.tRegion = tRegion;
         this.regionListViewComponent = regionListViewComponent;
         deleteButton.tooltip(Text.translatable("tondoas-regions.delete")).horizontalSizing(Sizing.content());
-        editButton.tooltip(Text.translatable("tondoas-regions.rename")).horizontalSizing(Sizing.content());
+        editButton.tooltip(Text.translatable("tondoas-regions.edit")).horizontalSizing(Sizing.content());
 
         nameLabel = Components.label(Text.literal(tRegion.name));
 
