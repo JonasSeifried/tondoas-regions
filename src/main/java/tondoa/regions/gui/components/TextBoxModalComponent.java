@@ -17,6 +17,7 @@ public class TextBoxModalComponent extends FlowLayout{
 
     public FlowLayout horizontalContainer = Containers.horizontalFlow(Sizing.content(), Sizing.content());
     public TextBoxComponent textBox = Components.textBox(Sizing.fill(30));
+    public CoordinateComponent coordinateComponent = new CoordinateComponent();
     public ButtonComponent acceptButton = Components.button(Text.literal("accept"), b -> {});
     public ButtonComponent cancelButton = Components.button(Text.translatable("tondoas-regions.cancel"), b -> closeModal());
 
@@ -28,12 +29,15 @@ public class TextBoxModalComponent extends FlowLayout{
     public TextBoxModalComponent(Sizing horizontalSizing, Sizing verticalSizing, Algorithm algorithm) {
         super(horizontalSizing, verticalSizing, algorithm);
 
+        coordinateComponent.horizontalSizing(Sizing.fill(45));
+
         horizontalContainer
                 .child(acceptButton)
                 .child(cancelButton);
         this
                 .child(label)
                 .child(textBox)
+                .child(coordinateComponent)
                 .child(horizontalContainer)
                 .alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
     }

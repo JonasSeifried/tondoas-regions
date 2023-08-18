@@ -9,9 +9,11 @@ import io.wispforest.owo.ui.core.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import tondoa.regions.data_storage.DataStorage;
 import tondoa.regions.data_storage.TRegion;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class RegionListViewComponent extends FlowLayout {
@@ -72,13 +74,23 @@ public class RegionListViewComponent extends FlowLayout {
         addRegionModal.acceptButton.setMessage(Text.translatable("tondoas-regions.add"));
         addRegionModal.acceptButton.onPress(b -> handleAddRegion(addRegionModal.textBox.getText()));
         addRegionModal.cancelButton.onPress(b -> updateTRegionComponentContainer());
+        Vec3d coords = Objects.requireNonNull(MinecraftClient.getInstance().player).getPos();
+        addRegionModal.coordinateComponent.xTextBox.text(String.format("%.2f", coords.x));
+        addRegionModal.coordinateComponent.yTextBox.text(String.format("%.2f", coords.y));
+        addRegionModal.coordinateComponent.zTextBox.text(String.format("%.2f", coords.z));
+
+
         tRegionComponentContainer.clearChildren();
         tRegionComponentContainer.child(0, addRegionModal);
     }
 
     private void handleAddRegion(String name) {
         if (isEmptyOrContainsKey(name, addRegionModal)) return;
-        DataStorage.addTRegion(name);
+        if (validateCoordinateTextBoxes(addRegionModal)) return;
+        double x = parseDouble(addRegionModal.coordinateComponent.xTextBox.getText());
+        double y = parseDouble(addRegionModal.coordinateComponent.yTextBox.getText());
+        double z = parseDouble(addRegionModal.coordinateComponent.zTextBox.getText());
+        DataStorage.addTRegion(name, new Vec3d(x, y, z));
         updateTRegionComponentContainer();
     }
 
@@ -94,5 +106,43 @@ public class RegionListViewComponent extends FlowLayout {
             return true;
         }
         return false;
+    }
+
+    public static boolean validateCoordinateTextBoxes(TextBoxModalComponent modal) {
+        CoordinateComponent coordinateComponent = modal.coordinateComponent;
+        if (isNotDouble(coordinateComponent.xTextBox.getText())) {
+            modal.label.text(Text.translatable("tondoas-regions.not_a_number", "x"));
+            modal.label.color(Color.RED);
+            return true;
+        }
+        if (isNotDouble(coordinateComponent.yTextBox.getText())) {
+            modal.label.text(Text.translatable("tondoas-regions.not_a_number", "y"));
+            modal.label.color(Color.RED);
+            return true;
+        }
+        if (isNotDouble(coordinateComponent.zTextBox.getText())) {
+            modal.label.text(Text.translatable("tondoas-regions.not_a_number", "z"));
+            modal.label.color(Color.RED);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isNotDouble(String s) {
+        try {
+            Double.parseDouble(s.replace(",", ".").replace(" ", ""));
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
+        }
+    }
+
+    public static double parseDouble(String s) {
+        try {
+            return Double.parseDouble(s.replace(",", ".").replace(" ", ""));
+
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.util.math.Vec3d;
 public class TRegion {
     public final double x, y, z;
     public Identifier biomeIdentifier;
+    public boolean biomeUnknown = false;
     public Identifier worldIdentifier;
     public String name;
 

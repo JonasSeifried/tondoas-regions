@@ -22,6 +22,7 @@ public class SettingsComponent extends FlowLayout {
     public CheckboxComponent coloredBiomesCheckBox = Components.checkbox(Text.translatable("tondoas-regions.colored_biomes"));
     public CheckboxComponent currDimCheckBox = Components.checkbox(Text.translatable("tondoas-regions.current_dimension"));
     public CheckboxComponent roundCoordinatesCheckBox = Components.checkbox(Text.translatable("tondoas-regions.round"));
+    public CheckboxComponent showDistanceCheckBox = Components.checkbox(Text.translatable("tondoas-regions.show_distance"));
     public FlowLayout footerContainer = Containers.horizontalFlow(Sizing.fill(100), Sizing.content());
     public ButtonComponent closeButton = Components.button(Text.translatable("tondoas-regions.close"), b -> Objects.requireNonNull(this.parent()).removeChild(this));
 
@@ -46,6 +47,10 @@ public class SettingsComponent extends FlowLayout {
         roundCoordinatesCheckBox.tooltip(Text.translatable("tondoas-regions.tooltip.round"));
         roundCoordinatesCheckBox.onChanged(b -> DataStorage.config.roundCoordinates = b);
 
+        showDistanceCheckBox.checked(DataStorage.config.showDistanceInGui);
+        showDistanceCheckBox.tooltip(Text.translatable("tondoas-regions.tooltip.show_distance"));
+        showDistanceCheckBox.onChanged(b -> DataStorage.config.showDistanceInGui = b);
+
         footerContainer.horizontalAlignment(HorizontalAlignment.RIGHT);
         footerContainer.child(closeButton);
 
@@ -54,6 +59,8 @@ public class SettingsComponent extends FlowLayout {
                 .child(currDimCheckBox)
                 .child(coloredBiomesCheckBox)
                 .child(roundCoordinatesCheckBox)
+                .child(showDistanceCheckBox)
+
                 .child(footerContainer)
                 .gap(2)
                 .surface(Surface.DARK_PANEL)
